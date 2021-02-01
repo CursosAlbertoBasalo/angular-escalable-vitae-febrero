@@ -1,9 +1,14 @@
 {
   "npmScope": "vitae",
-  "affected": { "defaultBase": "master" },
+  "affected": {
+    "defaultBase": "master"
+  },
   "implicitDependencies": {
     "angular.json": "*",
-    "package.json": { "dependencies": "*", "devDependencies": "*" },
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
     "tsconfig.base.json": "*",
     "tslint.json": "*",
     ".eslintrc.json": "*",
@@ -11,12 +16,29 @@
   },
   "tasksRunnerOptions": {
     "default": {
-      "runner": "@nrwl/workspace/tasks-runners/default",
-      "options": { "cacheableOperations": ["build", "lint", "test", "e2e"] }
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "accessToken": "NjY5YTgxNGQtNTQ1NC00MWE3LTgwMDgtZmRjOGYxZWEwOGYxfHJlYWQtd3JpdGU=",
+        "cacheableOperations": [
+          "build",
+          "test",
+          "lint",
+          "e2e"
+        ],
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
+      }
     }
   },
   "projects": {
-    "booster": { "tags": [] },
-    "booster-e2e": { "tags": [], "implicitDependencies": ["booster"] }
+    "booster": {
+      "tags": []
+    },
+    "booster-e2e": {
+      "tags": [],
+      "implicitDependencies": [
+        "booster"
+      ]
+    }
   }
 }
