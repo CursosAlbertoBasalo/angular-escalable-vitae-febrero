@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "cli": {
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/angular": {
+      "application": {
+        "linter": "eslint"
+      },
+      "library": {
+        "linter": "eslint"
+      },
+      "storybook-configuration": {
+        "linter": "eslint"
+      }
+    },
+    "@nrwl/angular:application": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest",
+      "e2eTestRunner": "cypress"
+    },
+    "@nrwl/angular:library": {
+      "style": "css",
+      "linter": "eslint",
+      "unitTestRunner": "jest"
+    },
+    "@nrwl/angular:component": {
+      "style": "css"
+    }
+  },
+  "defaultProject": "booster",
+  "projects": {
+    "booster": {
+      "projectType": "application",
+      "root": "apps/booster",
+      "sourceRoot": "apps/booster/src",
+      "prefix": "vitae",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/booster",
+            "index": "apps/booster/src/index.html",
+            "main": "apps/booster/src/main.ts",
+            "polyfills": "apps/booster/src/polyfills.ts",
+            "tsConfig": "apps/booster/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "apps/booster/src/favicon.ico",
+              "apps/booster/src/assets"
+            ],
+            "styles": ["apps/booster/src/styles.css"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/booster/src/environments/environment.ts",
+                  "with": "apps/booster/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "booster:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "booster:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "booster:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/booster/src/**/*.ts",
+              "apps/booster/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/booster"],
+          "options": {
+            "jestConfig": "apps/booster/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "booster-e2e": {
+      "root": "apps\\booster-e2e",
+      "sourceRoot": "apps/booster-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/booster-e2e/cypress.json",
+            "tsConfig": "apps/booster-e2e/tsconfig.e2e.json",
+            "devServerTarget": "booster:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "booster:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps\\booster-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    }
+  }
+}
