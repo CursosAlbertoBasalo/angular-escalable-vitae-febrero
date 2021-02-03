@@ -4,6 +4,9 @@
     "defaultCollection": "@nrwl/angular"
   },
   "schematics": {
+    "@schematics/angular:component": {
+      "change-detection": "OnPush"
+    },
     "@nrwl/angular": {
       "application": {
         "linter": "eslint"
@@ -52,7 +55,9 @@
               "apps/booster/src/favicon.ico",
               "apps/booster/src/assets"
             ],
-            "styles": ["apps/booster/src/styles.css"],
+            "styles": [
+              "apps/booster/src/styles.css"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -113,7 +118,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/booster"],
+          "outputs": [
+            "coverage/apps/booster"
+          ],
           "options": {
             "jestConfig": "apps/booster/jest.config.js",
             "passWithNoTests": true
@@ -142,7 +149,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps\\booster-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps\\booster-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
@@ -168,12 +177,17 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["libs/ui/src/**/*.ts", "libs/ui/src/**/*.html"]
+            "lintFilePatterns": [
+              "libs/ui/src/**/*.ts",
+              "libs/ui/src/**/*.html"
+            ]
           }
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/ui"],
+          "outputs": [
+            "coverage/libs/ui"
+          ],
           "options": {
             "jestConfig": "libs/ui/jest.config.js",
             "passWithNoTests": true
@@ -210,7 +224,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/data"],
+          "outputs": [
+            "coverage/libs/data"
+          ],
           "options": {
             "jestConfig": "libs/data/jest.config.js",
             "passWithNoTests": true
@@ -247,7 +263,9 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/libs/auth"],
+          "outputs": [
+            "coverage/libs/auth"
+          ],
           "options": {
             "jestConfig": "libs/auth/jest.config.js",
             "passWithNoTests": true
