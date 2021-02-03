@@ -131,3 +131,14 @@ summary {
   width: 16px;
   margin-right: 4px;
 }
+
+/* Logic colors*/
+h1 {
+  color: #28aaff;
+}
+.success {
+  color: #3ad29f;
+}
+.failure {
+  color: #f73454;
+}
