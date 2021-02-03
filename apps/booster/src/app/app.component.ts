@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { ApiResult } from './Api-results';
 import { Launch } from './Launch';
@@ -9,6 +11,7 @@ import { QueryParams } from './Query-params';
   selector: 'vitae-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent {
   title = 'angular-booster';
@@ -16,16 +19,16 @@ export class AppComponent {
     numberOfLaunches: 100,
     searchTerm: 'Shuttle',
   };
-  launches: Launch[] = [];
+
   theProblem = '';
+  launches$: Observable<Launch[]>;
 
   constructor(private http: HttpClient) {}
 
   getSpaceData() {
     const launchesUrl = `${environment.rootUrl}limit=${this.queryParams.numberOfLaunches}&search=${this.queryParams.searchTerm}`;
-    this.http.get<ApiResult>(launchesUrl).subscribe({
-      next: (data) => (this.launches = data.results),
-      error: (err) => (this.theProblem = err.error.detail),
-    });
+    this.launches$ = this.http
+      .get<ApiResult>(launchesUrl)
+      .pipe(map((data) => data.results));
   }
 }
