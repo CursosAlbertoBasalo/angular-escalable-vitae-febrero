@@ -1,7 +1,6 @@
-<section>
-  <vitae-ui-results-header [data]="{ counter: launches.length, thing: 'launches' }">
-  </vitae-ui-results-header>
-  <vitae-ui-card *ngFor="let launch of launches" [data]="{ name: launch.name }">
+<vitae-ui-results [data]="{ items: launches, thing: 'launches', theProblem:theProblem }">
+  <vitae-ui-card class="list" *ngFor="let launch of launches"
+                 [data]="{ name: launch.name, class : launch.status.name }">
     <main>
       <vitae-ui-on-time [data]="{ time: launch.net }"></vitae-ui-on-time>
       <vitae-ui-at-location [data]="{ location: launch.location }"></vitae-ui-at-location>
@@ -9,8 +8,4 @@
       </vitae-ui-at-location>
     </main>
   </vitae-ui-card>
-</section>
-<vitae-ui-waiting-message *ngIf="launches.length == 0 && theProblem === ''">
-</vitae-ui-waiting-message>
-<vitae-ui-error-message *ngIf="theProblem !== ''" [data]="{ message: theProblem }">
-</vitae-ui-error-message>
+</vitae-ui-results>

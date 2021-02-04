@@ -4,17 +4,14 @@
 </header>
 <vitae-ui-explorer>
   <vitae-search-form
-    class="search"
-    [queryParams]="queryParams"
-    (search)="getSpaceData()"
-  >
+                     class="search"
+                     [queryParams]="queryParams"
+                     (search)="getSpaceData()">
   </vitae-search-form>
-
   <vitae-results-list
-    *ngIf="launches$ | async as launches"
-    class="results"
-    [launches]="launches"
-    [theProblem]="theProblem"
-  >
+                      *ngIf="launches$ | async as launches"
+                      class="results"
+                      [launches]="launches"
+                      [theProblem]="theProblem">
   </vitae-results-list>
 </vitae-ui-explorer>
