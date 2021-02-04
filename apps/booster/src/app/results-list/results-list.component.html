@@ -1,31 +1,16 @@
 <section>
-  <header>
-    <h2>Found {{ launches.length }} launches</h2>
-  </header>
-  <aside
-    *ngFor="let launch of launches"
-    class="{{ launch.status.name | lowercase }}"
-  >
-    <h3>
-      {{ launch.name }}
-    </h3>
-    <p>
-      <b>on {{ launch.net | date: 'dd/MM/yyyy HH:mm:ss' }}</b>
-    </p>
-    <p>
-      <i> at {{ launch.location }}</i>
-    </p>
-    <i> pad: {{ launch.pad }}</i>
-  </aside>
+  <vitae-ui-results-header [data]="{ counter: launches.length, thing: 'launches' }">
+  </vitae-ui-results-header>
+  <vitae-ui-card *ngFor="let launch of launches" [data]="{ name: launch.name }">
+    <main>
+      <vitae-ui-on-time [data]="{ time: launch.net }"></vitae-ui-on-time>
+      <vitae-ui-at-location [data]="{ location: launch.location }"></vitae-ui-at-location>
+      <vitae-ui-at-location [data]="{ prefix: 'pad:', location: launch.pad }">
+      </vitae-ui-at-location>
+    </main>
+  </vitae-ui-card>
 </section>
-<aside *ngIf="launches.length == 0">
-  <header>
-    <h4>📡 Waiting... No data yet 📡</h4>
-  </header>
-</aside>
-<aside *ngIf="theProblem !== ''">
-  <header>
-    <h3>💫 Houston, we have a problem! 💫</h3>
-    <h5>{{ theProblem | json }}</h5>
-  </header>
-</aside>
+<vitae-ui-waiting-message *ngIf="launches.length == 0 && theProblem === ''">
+</vitae-ui-waiting-message>
+<vitae-ui-error-message *ngIf="theProblem !== ''" [data]="{ message: theProblem }">
+</vitae-ui-error-message>

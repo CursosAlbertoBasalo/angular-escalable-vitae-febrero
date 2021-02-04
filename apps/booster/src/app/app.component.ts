@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
 import { environment } from '../environments/environment';
 import { ApiResult } from './Api-results';
 import { Launch } from './Launch';
@@ -27,8 +27,12 @@ export class AppComponent {
 
   getSpaceData() {
     const launchesUrl = `${environment.rootUrl}limit=${this.queryParams.numberOfLaunches}&search=${this.queryParams.searchTerm}`;
-    this.launches$ = this.http
-      .get<ApiResult>(launchesUrl)
-      .pipe(map((data) => data.results));
+    this.launches$ = this.http.get<ApiResult>(launchesUrl).pipe(
+      map((data) => data.results),
+      catchError((err) => {
+        this.theProblem = err.message;
+        return of([]);
+      })
+    );
   }
 }
