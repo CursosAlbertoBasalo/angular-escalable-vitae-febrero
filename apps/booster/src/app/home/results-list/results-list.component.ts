@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { Launch } from '../launch';
+import { Launch } from '../../launch';
 
 @Component({
   selector: 'vitae-results-list',

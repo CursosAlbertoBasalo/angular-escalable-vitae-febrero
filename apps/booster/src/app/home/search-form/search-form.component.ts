@@ -5,7 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { QueryParams } from '../Query-params';
+import { QueryParams } from '../../Query-params';
 
 @Component({
   selector: 'vitae-search-form',
