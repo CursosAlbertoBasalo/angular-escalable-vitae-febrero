@@ -28,13 +28,13 @@ export class OnlyMembersGuard implements CanActivate, CanLoad {
     | UrlTree
     | Observable<boolean | UrlTree>
     | Promise<boolean | UrlTree> {
-    return false;
+    return true;
   }
 
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): guardResuponse {
-    return false;
+    return true;
   }
 }
