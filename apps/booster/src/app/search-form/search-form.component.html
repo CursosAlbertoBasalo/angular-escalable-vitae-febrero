@@ -1,0 +1,19 @@
+<form>
+  <legend>
+    Searching {{ queryParams.numberOfLaunches }} launches related to
+    {{ queryParams.searchTerm }}
+  </legend>
+  <div>
+    <label for="searchTerm">Search term</label>
+    <input name="searchTerm" type="text" [(ngModel)]="queryParams.searchTerm" />
+  </div>
+  <div>
+    <label for="numberOfLaunches">Number of launches</label>
+    <input
+      name="numberOfLaunches"
+      type="number"
+      [(ngModel)]="queryParams.numberOfLaunches"
+    />
+  </div>
+  <button type="submit" (click)="getSpaceData()">Go !</button>
+</form>

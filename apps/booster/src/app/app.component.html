@@ -1,6 +1,17 @@
-<vitae-ui-title></vitae-ui-title>
-
-<a [routerLink]="['next']">Próximos lanzamientos</a>
-<p></p>
-<a [routerLink]="['auth/login']">Log In</a>
-<router-outlet></router-outlet>
+<header>
+  <h1>{{ title }}</h1>
+  <p>Angular application example for lift off 🚀</p>
+</header>
+<vitae-ui-explorer>
+  <vitae-search-form
+                     class="search"
+                     [queryParams]="queryParams"
+                     (search)="getSpaceData()">
+  </vitae-search-form>
+  <vitae-results-list
+                      *ngIf="launches$ | async as launches"
+                      class="results"
+                      [launches]="launches"
+                      [theProblem]="theProblem">
+  </vitae-results-list>
+</vitae-ui-explorer>
