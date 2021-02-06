@@ -1,11 +1,9 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HeadService } from '@vitae/ui';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
-import { ApiResult } from '../Api-results';
+import { catchError, tap } from 'rxjs/operators';
+import { LaunchesService } from '../core/services/launches.service';
 import { Launch } from '../launch';
 import { QueryParams } from '../Query-params';
 
@@ -27,8 +25,8 @@ export class HomeComponent {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private http: HttpClient,
-    private head: HeadService
+    private head: HeadService,
+    private launches: LaunchesService
   ) {
     route.queryParams.subscribe({
       next: (routeQueryParams) => {
@@ -39,9 +37,7 @@ export class HomeComponent {
   }
 
   getSpaceData() {
-    const launchesUrl = `${environment.rootUrl}?mode=list&limit=${this.queryParams.numberOfLaunches}&search=${this.queryParams.searchTerm}`;
-    this.launches$ = this.http.get<ApiResult>(launchesUrl).pipe(
-      map((data) => data.results),
+    this.launches$ = this.launches.getByQuery(this.queryParams).pipe(
       tap((launches) => this.head.setTitle('🔎 ' + launches.length)),
       catchError((err) => {
         this.theProblem = err.message;

@@ -23,7 +23,7 @@ export class LaunchesResolver implements Resolve<Launch[]> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Launch[]> {
-    const launchesUrl = `${environment.rootUrl}upcoming`;
+    const launchesUrl = `${environment.rootUrl}upcoming?mode=list`;
     return this.http.get<ApiResult>(launchesUrl).pipe(
       map((data) => data.results),
       catchError((err) => {

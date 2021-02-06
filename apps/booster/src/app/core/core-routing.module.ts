@@ -10,6 +10,10 @@ import { OnlyMembersGuard } from '@vitae/data';
 import { HeadService } from '@vitae/ui';
 const routes: Routes = [
   {
+    path: '',
+    loadChildren: () => import('../home/home.module').then((m) => m.HomeModule),
+  },
+  {
     path: 'next',
     data: {
       pageTitle: '🚀 next 10',
@@ -22,15 +26,16 @@ const routes: Routes = [
       import('@vitae/auth').then((module) => module.AuthModule),
   },
   {
-    path: '',
-    loadChildren: () => import('../home/home.module').then((m) => m.HomeModule),
-  },
-  {
     path: 'comments',
     canLoad: [OnlyMembersGuard],
     canActivate: [OnlyMembersGuard],
     loadChildren: () =>
       import('../comments/comments.module').then((m) => m.CommentsModule),
+  },
+  {
+    path: 'launch/:id',
+    loadChildren: () =>
+      import('../launch/launch.module').then((m) => m.LaunchModule),
   },
 ];
 

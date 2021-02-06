@@ -1,3 +1,11 @@
-<pre>
-  {{ launches | json }}
-</pre>
+<vitae-ui-results [data]="{ items: launches, thing: 'launches', theProblem:'' }">
+  <vitae-ui-card class="list" *ngFor="let launch of launches"
+                 [data]="{ name: launch.name, class : launch.status.name, link: '../launch/'+ launch.id }">
+    <main>
+      <vitae-ui-on-time [data]="{ time: launch.net }"></vitae-ui-on-time>
+      <vitae-ui-at-location [data]="{ location: launch.location }"></vitae-ui-at-location>
+      <vitae-ui-at-location [data]="{ prefix: 'pad:', location: launch.pad }">
+      </vitae-ui-at-location>
+    </main>
+  </vitae-ui-card>
+</vitae-ui-results>

@@ -7,5 +7,10 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardComponent {
-  @Input() data!: { class: string; name: string; imageUrl?: string };
+  @Input() data!: {
+    class: string;
+    name: string;
+    imageUrl?: string;
+    link?: string;
+  };
 }
