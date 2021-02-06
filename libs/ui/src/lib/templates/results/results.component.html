@@ -1,11 +1,11 @@
 <section>
-  <vitae-ui-results-header [data]="{ counter: data.items.length, thing: data.thing }">
+  <vitae-ui-results-header [data]="getResultsHeader()">
   </vitae-ui-results-header>
   <div>
     <ng-content select=".list"></ng-content>
   </div>
 </section>
-<vitae-ui-waiting-message *ngIf="data.items.length == 0 && data.theProblem === ''">
+<vitae-ui-waiting-message *ngIf="data?.searching">
 </vitae-ui-waiting-message>
-<vitae-ui-error-message *ngIf="data.theProblem !== ''" [data]="{ message: data.theProblem }">
+<vitae-ui-error-message *ngIf="hasErrorMessage()" [data]="getErrorMessage()">
 </vitae-ui-error-message>

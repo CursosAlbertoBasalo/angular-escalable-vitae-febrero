@@ -53,6 +53,12 @@ h2 {
   margin: 40px 0 10px 0;
 }
 
+h3 {
+  text-align: start;
+  font-size: 18px;
+  margin: 40px 0 10px 0;
+}
+
 nav a {
   color: #fff;
 }

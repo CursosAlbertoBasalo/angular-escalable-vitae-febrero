@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ResultsHeader } from '../../models/ResultsHeader';
 
 @Component({
   selector: 'vitae-ui-results-header',
@@ -7,5 +8,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResultsHeaderComponent {
-  @Input() data!: { counter: number; thing: string };
+  @Input() data!: ResultsHeader;
 }

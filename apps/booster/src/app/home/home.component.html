@@ -4,10 +4,10 @@
                      [queryParams]="queryParams"
                      (search)="getSpaceData()">
   </vitae-search-form>
-  <vitae-results-list
-                      *ngIf="launches$ | async as launches"
-                      class="results"
-                      [launches]="launches"
-                      [theProblem]="theProblem">
-  </vitae-results-list>
+  <vitae-launches-list
+                       class="results"
+                       [launches]="launches$ | async "
+                       [theProblem]="theProblem"
+                       [searching]="searching">
+  </vitae-launches-list>
 </vitae-ui-explorer>

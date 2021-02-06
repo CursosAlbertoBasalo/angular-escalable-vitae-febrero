@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Card } from '../../models/Card';
 
 @Component({
   selector: 'vitae-ui-card',
@@ -7,10 +8,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardComponent {
-  @Input() data!: {
-    class: string;
-    name: string;
-    imageUrl?: string;
-    link?: string;
-  };
+  @Input() data!: Card;
 }
