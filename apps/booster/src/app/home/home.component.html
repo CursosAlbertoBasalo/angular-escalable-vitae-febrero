@@ -1,0 +1,13 @@
+<vitae-ui-explorer>
+  <vitae-search-form
+                     class="search"
+                     [queryParams]="queryParams"
+                     (search)="getSpaceData()">
+  </vitae-search-form>
+  <vitae-launches-list
+                       class="results"
+                       [launches]="launches$ | async "
+                       [theProblem]="theProblem"
+                       [searching]="searching">
+  </vitae-launches-list>
+</vitae-ui-explorer>

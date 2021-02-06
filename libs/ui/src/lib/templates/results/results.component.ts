@@ -1,4 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ErrorMessage } from '../../models/ErrorMessage';
+import { Results } from '../../models/Results';
+import { ResultsHeader } from '../../models/ResultsHeader';
 
 @Component({
   selector: 'vitae-ui-results',
@@ -7,5 +10,20 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ResultsComponent {
-  @Input() data!: { items: unknown[]; thing: string; theProblem?: string };
+  @Input() data!: Results;
+  resultsHeader!: ResultsHeader;
+  errorMessage!: ErrorMessage;
+
+  getResultsHeader() {
+    return {
+      counter: this.data.items.length,
+      thing: this.data.thing,
+    };
+  }
+  hasErrorMessage() {
+    return this.data?.theProblem;
+  }
+  getErrorMessage() {
+    return { message: this.data?.theProblem || '' };
+  }
 }

@@ -1,8 +1,6 @@
-<aside class="{{ data.class }}">
-  <h3>
+<aside>
+  <h3 [routerLink]="data.link" class="{{ data.class }}">
     {{ data.name }}
   </h3>
-  <div>
-    <ng-content select="main"></ng-content>
-  </div>
+  <ng-content select="main"></ng-content>
 </aside>
