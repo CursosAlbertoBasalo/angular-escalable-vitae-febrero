@@ -2,7 +2,7 @@
   <vitae-search-form
                      class="search"
                      [queryParams]="queryParams"
-                     (search)="getSpaceData()">
+                     (search)="getSpaceData($event)">
   </vitae-search-form>
   <vitae-launches-list
                        class="results"
