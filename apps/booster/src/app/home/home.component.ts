@@ -7,6 +7,8 @@ import { LaunchesService } from '../core/services/launches.service';
 import { Launch } from '../launch';
 import { QueryParams } from '../Query-params';
 
+// ! Page Container. Gets observables and passes data to presenters
+
 @Component({
   selector: 'vitae-home',
   templateUrl: './home.component.html',

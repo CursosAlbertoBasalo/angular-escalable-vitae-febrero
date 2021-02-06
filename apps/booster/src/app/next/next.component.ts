@@ -3,6 +3,9 @@ import { ActivatedRoute } from '@angular/router';
 import { Card, Results } from '@vitae/ui';
 import { Launch } from '../launch';
 
+// ! Page Container. Gets its data from resolver and passes it to presenters
+// No easy way to show a laoder nor an error
+
 @Component({
   templateUrl: './next.component.html',
   styleUrls: ['./next.component.css'],
