@@ -1,32 +1,38 @@
 <form [formGroup]="form" (submit)="getSpaceData()">
-  <div>
+  <legend>Refine your search</legend>
+  <fieldset>
     <div>
-      <label for="searchTerm">Search term</label>
-      <input name="searchTerm" type="text" formControlName="searchTerm" />
+      <div>
+        <label for="searchTerm">Search term :</label>
+        <input name="searchTerm" type="text" formControlName="searchTerm" />
+      </div>
+      <small *ngIf="getErrorMessage('searchTerm') as errors"><em>🚨 {{errors}}</em></small>
     </div>
     <div>
-      <label for="numberOfLaunches">Number of launches</label>
-      <input
-             name="numberOfLaunches"
-             type="number"
-             formControlName="numberOfLaunches" />
+      <div>
+        <label for="numberOfLaunches">Number of launches :</label>
+        <input
+               name="numberOfLaunches"
+               type="number"
+               formControlName="numberOfLaunches" />
+      </div>
+      <small *ngIf="getErrorMessage('numberOfLaunches') as errors"><em>🚨 {{errors}}</em></small>
     </div>
-  </div>
-  <div>
     <div>
-      <label for="fromDate">From Date: </label>
+      <label for="fromDate">From Date :</label>
       <input
              name="fromDate"
              type="date"
              formControlName="fromDate" />
     </div>
     <div>
-      <label for="toDate">To Date: </label>
+      <label for="toDate">To Date :</label>
       <input
              name="toDate"
              type="date"
              formControlName="toDate" />
     </div>
-  </div>
-  <button type="submit">Go 🚀</button>
+  </fieldset>
+  <small *ngIf="getErrorMessage() as errors"><em>🚨 {{errors}}</em></small>
+  <button type="submit" [disabled]="form.invalid">Go 🚀</button>
 </form>

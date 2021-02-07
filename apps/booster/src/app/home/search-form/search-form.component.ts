@@ -6,7 +6,13 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
+import { ValidatorsService } from '@vitae/data';
 import { QueryParams } from '../../Query-params';
 
 @Component({
@@ -19,29 +25,33 @@ export class SearchFormComponent implements OnInit {
   @Input() queryParams: QueryParams;
   @Output() search = new EventEmitter<QueryParams>();
   form!: FormGroup;
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private validators: ValidatorsService) {}
   ngOnInit(): void {
-    this.form = this.fb.group({
-      searchTerm: this.queryParams.searchTerm,
-      numberOfLaunches: this.queryParams.numberOfLaunches,
-      fromDate: this.getFormValue(this.queryParams.fromDate),
-      toDate: this.getFormValue(this.queryParams.toDate),
-    });
+    this.form = this.fb.group(
+      {
+        searchTerm: new FormControl(this.queryParams.searchTerm, [
+          Validators.minLength(2),
+        ]),
+        numberOfLaunches: new FormControl(this.queryParams.numberOfLaunches, [
+          Validators.min(1),
+          Validators.max(100),
+        ]),
+        fromDate: new FormControl(
+          this.validators.getValidDate(this.queryParams.fromDate)
+        ),
+        toDate: new FormControl(
+          this.validators.getValidDate(this.queryParams.toDate)
+        ),
+      },
+      {
+        validator: this.validators.dateLessThan('fromDate', 'toDate'),
+      }
+    );
   }
   getSpaceData() {
-    console.log(this.form.value);
     this.search.next(this.form.value);
   }
-
-  private getFormValue(theDate: Date) {
-    if (typeof theDate === 'string') {
-      theDate = new Date(theDate);
-    }
-    const year = theDate.getFullYear();
-    const month = this.zeroPad(theDate.getMonth() + 1, 2);
-    const day = this.zeroPad(theDate.getDate(), 2);
-    const dateForm = `${year}-${month}-${day}`;
-    return dateForm;
+  getErrorMessage(controlName: string) {
+    return this.validators.getErrorMessage(this.form, controlName);
   }
-  private zeroPad = (num, places) => String(num).padStart(places, '0');
 }

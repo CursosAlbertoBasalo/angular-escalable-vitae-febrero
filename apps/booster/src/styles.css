@@ -347,7 +347,7 @@ button[disabled]:hover {
 }
 
 form {
-  display: flex;
+  display: grid;
   border: 1px solid var(--color-bg-secondary);
   border-radius: var(--border-radius);
   box-shadow: var(--box-shadow) var(--color-shadow);
@@ -355,6 +355,12 @@ form {
   min-width: var(--width-card);
   padding: 1.5rem;
   text-align: var(--justify-normal);
+}
+
+form legend {
+}
+
+form fieldset {
 }
 
 header form {
@@ -373,6 +379,7 @@ select,
 textarea {
   display: inline-block;
   font-size: inherit;
+  margin-left: 5px;
   max-width: var(--width-card-wide);
 }
 
