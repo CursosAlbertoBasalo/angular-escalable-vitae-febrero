@@ -6,7 +6,11 @@ import { FormGroup } from '@angular/forms';
 })
 export class ValidatorsService {
   dateLessThan(from: string, to: string) {
-    return (group: FormGroup): { [key: string]: any } => {
+    type errorOrNull = {
+      [key: string]: any;
+    } | null;
+
+    return function validate(group: FormGroup): errorOrNull {
       const f = group.controls[from];
       const t = group.controls[to];
       if (f.value > t.value) {
@@ -14,7 +18,7 @@ export class ValidatorsService {
           'dates-range-invalid': 'Date from should be less than Date to',
         };
       }
-      return {};
+      return null;
     };
   }
 

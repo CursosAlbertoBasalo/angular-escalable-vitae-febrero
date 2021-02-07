@@ -9,9 +9,10 @@ import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
 import { LaunchesListComponent } from './launches-list/launches-list.component';
 import { SearchFormComponent } from './search-form/search-form.component';
+import { DateRangeComponent } from './search-form/date-range/date-range.component';
 
 @NgModule({
-  declarations: [HomeComponent, SearchFormComponent, LaunchesListComponent],
+  declarations: [HomeComponent, SearchFormComponent, LaunchesListComponent, DateRangeComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,
