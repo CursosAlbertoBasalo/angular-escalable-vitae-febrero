@@ -12,6 +12,7 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
+import { ValidatorsService } from '@vitae/data';
 import { QueryParams } from '../../Query-params';
 
 @Component({
@@ -25,22 +26,29 @@ export class SearchFormComponent implements OnInit {
   @Output() search = new EventEmitter<QueryParams>();
   form!: FormGroup;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: FormBuilder, private validators: ValidatorsService) {}
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      searchTerm: new FormControl(
-        this.queryParams.searchTerm,
-        Validators.required
-      ),
+      searchTerm: new FormControl(this.queryParams.searchTerm, [
+        Validators.required,
+        Validators.minLength(2),
+      ]),
       numberOfLaunches: new FormControl(this.queryParams.numberOfLaunches, [
         Validators.min(1),
         Validators.max(100),
       ]),
+      dateRange: this.dateRangeComponent.createFormGroup(
+        this.queryParams.fromDate,
+        this.queryParams.toDate
+      ),
     });
   }
 
   getSpaceData() {
     this.search.next(this.form.value);
+  }
+  getErrorMessage(controlName: string) {
+    return this.validators.getErrorMessage(this.form, controlName);
   }
 }

@@ -5,6 +5,8 @@
   <div>
     <label for="searchTerm">Search term</label>
     <input name="searchTerm" type="text" formControlName="searchTerm" />
+    <small
+           *ngIf="getErrorMessage('searchTerm') as errorMessage"><i>{{errorMessage}}</i></small>
   </div>
   <div>
     <label for="numberOfLaunches">Number of launches</label>
@@ -12,6 +14,11 @@
            name="numberOfLaunches"
            type="number"
            formControlName="numberOfLaunches" />
+    <small
+           *ngIf="getErrorMessage('numberOfLaunches') as errorMessage"><i>{{errorMessage}}</i></small>
   </div>
+  <vitae-date-range-form></vitae-date-range-form>
+  <small
+         *ngIf="getErrorMessage() as errorMessage"><i>{{errorMessage}}</i></small>
   <button type="submit" [disabled]="form.invalid">Go !</button>
 </form>
