@@ -5,6 +5,7 @@ import {
   Input,
   OnInit,
   Output,
+  ViewChild,
 } from '@angular/core';
 import {
   FormBuilder,
@@ -14,6 +15,7 @@ import {
 } from '@angular/forms';
 import { ValidatorsService } from '@vitae/data';
 import { QueryParams } from '../../Query-params';
+import { DateRangeFormComponent } from './date-range-form/date-range-form.component';
 
 @Component({
   selector: 'vitae-search-form',
@@ -25,6 +27,9 @@ export class SearchFormComponent implements OnInit {
   @Input() queryParams: QueryParams;
   @Output() search = new EventEmitter<QueryParams>();
   form!: FormGroup;
+
+  @ViewChild(DateRangeFormComponent, { static: true })
+  public dateRangeComponent: DateRangeFormComponent;
 
   constructor(private fb: FormBuilder, private validators: ValidatorsService) {}
 
@@ -46,7 +51,16 @@ export class SearchFormComponent implements OnInit {
   }
 
   getSpaceData() {
-    this.search.next(this.form.value);
+    const value = this.form.value;
+
+    const searchParams = {
+      searchTerm: value.searchTerm,
+      numberOfLaunches: value.numberOfLaunches,
+      fromDate: value.dateRange.fromDate,
+      toDate: value.dateRange.toDate,
+    };
+
+    this.search.next(searchParams);
   }
   getErrorMessage(controlName: string) {
     return this.validators.getErrorMessage(this.form, controlName);
