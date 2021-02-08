@@ -1,19 +1,17 @@
-<form>
-  <legend>
-    Searching {{ queryParams.numberOfLaunches }} launches related to
+<form [formGroup]="form" (submit)="getSpaceData()">
+  <legend> Searching {{ queryParams.numberOfLaunches }} launches related to
     {{ queryParams.searchTerm }}
   </legend>
   <div>
     <label for="searchTerm">Search term</label>
-    <input name="searchTerm" type="text" [(ngModel)]="queryParams.searchTerm" />
+    <input name="searchTerm" type="text" formControlName="searchTerm" />
   </div>
   <div>
     <label for="numberOfLaunches">Number of launches</label>
     <input
-      name="numberOfLaunches"
-      type="number"
-      [(ngModel)]="queryParams.numberOfLaunches"
-    />
+           name="numberOfLaunches"
+           type="number"
+           formControlName="numberOfLaunches" />
   </div>
-  <button type="submit" (click)="getSpaceData()">Go !</button>
+  <button type="submit" [disabled]="form.invalid">Go !</button>
 </form>

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { UiModule } from '@vitae/ui';
 import { HomeRoutingModule } from './home-routing.module';
@@ -16,7 +16,7 @@ import { SearchFormComponent } from './search-form/search-form.component';
     HomeRoutingModule,
     UiModule,
     RouterModule,
-    FormsModule,
+    ReactiveFormsModule,
     HttpClientModule,
   ],
 })
