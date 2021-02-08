@@ -20,7 +20,7 @@ export class DateRangeComponent {
         toDate: new FormControl(this.validators.getValidDate(toDate)),
       },
       {
-        validator: this.validators.dateLessThan('fromDate', 'toDate'),
+        validator: this.validators.dateBetween('fromDate', 'toDate'),
       }
     );
     this.form.markAsTouched();

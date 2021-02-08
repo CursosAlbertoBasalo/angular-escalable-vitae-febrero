@@ -5,7 +5,7 @@ import { FormGroup } from '@angular/forms';
   providedIn: 'root',
 })
 export class ValidatorsService {
-  dateLessThan(from: string, to: string) {
+  dateBetween(from: string, to: string) {
     type errorOrNull = {
       [key: string]: any;
     } | null;
@@ -28,6 +28,7 @@ export class ValidatorsService {
       // ToDo: use value instead of key name if is a string...
       return Object.keys(control.errors).concat();
     }
+    return null;
   }
 
   getValidDate(theDate: Date) {
