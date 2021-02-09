@@ -5,15 +5,11 @@ import { FormGroup } from '@angular/forms';
   providedIn: 'root',
 })
 export class ValidatorsService {
-  dateBetween(from: string, to: string) {
-    type errorOrNull = {
-      [key: string]: any;
-    } | null;
-
-    return function validate(group: FormGroup): errorOrNull {
-      const f = group.controls[from];
-      const t = group.controls[to];
-      if (f.value > t.value) {
+  dateRange(from: string, to: string) {
+    return function validate(group: FormGroup) {
+      const fromControl = group.controls[from];
+      const toControl = group.controls[to];
+      if (fromControl.value > toControl.value) {
         return {
           'dates-range-invalid': 'Date from should be less than Date to',
         };
