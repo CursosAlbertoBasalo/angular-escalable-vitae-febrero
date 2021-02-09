@@ -44,7 +44,7 @@ export class HomeComponent {
   getSpaceData() {
     this.searching = true;
     this.theProblem = '';
-    this.launches$ = this.launches.getByQuery(this.queryParams).pipe(
+    this.launches$ = this.launches.getByQuery$(this.queryParams).pipe(
       tap((launches) => this.head.setTitle('🔎 ' + launches.length)),
       catchError((err) => {
         this.theProblem = err.message;

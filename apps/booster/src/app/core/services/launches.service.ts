@@ -5,7 +5,8 @@ import { environment } from 'apps/booster/src/environments/environment';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ApiResult } from '../../Api-results';
-import { Launch } from '../../launch';
+import { Launch } from '../models/Launch';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -14,39 +15,37 @@ export class LaunchesService {
 
   constructor(private http: HttpClient) {}
 
-  getById(launchId: string) {
+  getById$(launchId: string) {
     const launchByIdUrl = `${this.getEndpointUrl()}/${launchId}/`;
-    return this.http.get<Launch>(launchByIdUrl);
+    return this.http
+      .get<Launch>(launchByIdUrl)
+      .pipe(catchError((err) => of({})));
   }
 
-  // ToDo: reuse pipe ---> interceptor
+  // ToDo: reuse pipe --->
 
-  getByQuery(queryParams: { numberOfLaunches: number; searchTerm: string }) {
+  getByQuery$(queryParams: { numberOfLaunches: number; searchTerm: string }) {
     const endPointUrl = `${this.getEndpointUrl()}?${this.modeList()}`;
-    const launchesByQueryUrl = `${endPointUrl}&limit=${queryParams.numberOfLaunches}&search=${queryParams.searchTerm}`;
+    const query = `${queryParams.numberOfLaunches}&search=${queryParams.searchTerm}`;
+    const launchesByQueryUrl = `${endPointUrl}&${query}`;
     return this.http.get<ApiResult>(launchesByQueryUrl).pipe(
-      map((data) =>
-        data.results.map((result) => ({
-          ...result,
-          agencyName: result.lsp_name,
-        }))
-      )
+      map((data) => this.transformLaunchData(data)),
+      catchError((err) => of([]))
     );
   }
-  getUpcoming() {
+
+  getUpcoming$() {
     const endPointUrl = `${this.getEndpointUrl()}/upcoming?${this.modeList()}`;
     return this.http.get<ApiResult>(endPointUrl).pipe(
-      map((data) =>
-        data.results.map((result) => ({
-          ...result,
-          agencyName: result.lsp_name,
-        }))
-      ),
-      catchError((err) => {
-        // this.router.navigateByUrl('');
-        return of([]);
-      })
+      map((data) => this.transformLaunchData(data)),
+      catchError((err) => of([]))
     );
+  }
+  private transformLaunchData(data: ApiResult): any[] {
+    return data.results.map((result) => ({
+      ...result,
+      agencyName: result.lsp_name,
+    }));
   }
 
   private getEndpointUrl(modeList?: boolean) {

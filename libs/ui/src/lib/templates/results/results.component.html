@@ -1,9 +1,9 @@
 <section>
   <vitae-ui-results-header [data]="getResultsHeader()">
   </vitae-ui-results-header>
-  <div>
+  <section>
     <ng-content select=".list"></ng-content>
-  </div>
+  </section>
 </section>
 <vitae-ui-waiting-message *ngIf="data?.searching">
 </vitae-ui-waiting-message>

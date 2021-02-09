@@ -22,6 +22,6 @@ export class LaunchComponent implements OnInit {
 
   ngOnInit(): void {
     const launchId = this.route.snapshot.params['id'];
-    this.launch$ = this.launches.getById(launchId);
+    this.launch$ = this.launches.getById$(launchId);
   }
 }

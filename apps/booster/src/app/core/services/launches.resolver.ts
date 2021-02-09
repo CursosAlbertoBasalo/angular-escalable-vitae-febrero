@@ -25,6 +25,6 @@ export class LaunchesResolver implements Resolve<Launch[]> {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<Launch[]> {
-    return this.launches.getUpcoming();
+    return this.launches.getUpcoming$();
   }
 }

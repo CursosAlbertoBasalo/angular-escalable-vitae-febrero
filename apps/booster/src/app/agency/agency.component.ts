@@ -35,10 +35,10 @@ export class AgencyComponent implements OnInit {
   private getAgencyAndThenItsLaunches() {
     this.agency$ = this.route.params.pipe(
       map((params) => params.id),
-      switchMap((agencyName) => this.agencies.getByname(agencyName)),
+      switchMap((agencyName) => this.agencies.getByName$(agencyName)),
       tap(
         (agency) =>
-          (this.launches$ = this.launches.getByQuery({
+          (this.launches$ = this.launches.getByQuery$({
             numberOfLaunches: 1,
             searchTerm: agency.name,
           }))
@@ -55,8 +55,8 @@ export class AgencyComponent implements OnInit {
       map((params) => params.id),
       switchMap((agencyName) =>
         forkJoin([
-          this.agencies.getByname(agencyName),
-          this.launches.getByQuery({
+          this.agencies.getByName$(agencyName),
+          this.launches.getByQuery$({
             numberOfLaunches: 1,
             searchTerm: agencyName,
           }),
@@ -74,8 +74,8 @@ export class AgencyComponent implements OnInit {
       .pipe(
         map((params) => params.id),
         tap((agencyName) => {
-          this.agency$ = this.agencies.getByname(agencyName);
-          this.launches$ = this.launches.getByQuery({
+          this.agency$ = this.agencies.getByName$(agencyName);
+          this.launches$ = this.launches.getByQuery$({
             numberOfLaunches: 1,
             searchTerm: agencyName,
           });
