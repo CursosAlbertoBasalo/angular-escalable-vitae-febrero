@@ -37,6 +37,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('../launch/launch.module').then((m) => m.LaunchModule),
   },
+  { path: 'agency/:id', loadChildren: () => import('../agency/agency.module').then(m => m.AgencyModule) },
 ];
 
 @NgModule({

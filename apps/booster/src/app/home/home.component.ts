@@ -16,7 +16,7 @@ import { QueryParams } from '../Query-params';
 })
 export class HomeComponent {
   private readonly initialQuery = {
-    numberOfLaunches: 0,
+    numberOfLaunches: 10,
     searchTerm: 'Shuttle',
     fromDate: new Date(1980, 0, 1),
     toDate: new Date(1989, 11, 31),

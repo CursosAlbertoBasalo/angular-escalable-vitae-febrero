@@ -5,4 +5,5 @@ export interface Launch {
   status: { name: string };
   location?: string;
   pad: string | { name: string; location: { name: string } };
+  agencyName: string;
 }
