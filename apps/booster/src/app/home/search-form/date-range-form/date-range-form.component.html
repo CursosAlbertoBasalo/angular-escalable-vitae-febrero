@@ -5,6 +5,8 @@
            name="fromDate"
            type="date"
            formControlName="fromDate" />
+    <small
+           *ngIf="getErrorMessage('fromDate') as errorMessage"><i>{{errorMessage}}</i></small>
   </div>
   <div>
     <label for="toDate">To Date :</label>
@@ -12,5 +14,9 @@
            name="toDate"
            type="date"
            formControlName="toDate" />
+    <small
+           *ngIf="getErrorMessage('toDate') as errorMessage"><i>{{errorMessage}}</i></small>
   </div>
+  <small
+         *ngIf="getErrorMessage() as errorMessage"><i>{{errorMessage}}</i></small>
 </form>

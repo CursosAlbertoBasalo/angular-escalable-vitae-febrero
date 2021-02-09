@@ -1,13 +1,11 @@
 import { Injectable } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { AbstractControl, FormGroup } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ValidatorsService {
-  constructor() {}
-
-  getValidDate(theDate: Date) {
+  getInputValueFromDate(theDate: Date) {
     if (typeof theDate === 'string') {
       theDate = new Date(theDate);
     }
@@ -18,22 +16,34 @@ export class ValidatorsService {
 
   getErrorMessage(form: FormGroup, controlName?: string) {
     const control = controlName ? form.controls[controlName] : form;
-    if (control.errors && control.touched) {
+    if (control && control.errors && control.touched) {
       // ToDo: use value instead of key name if is a string...
       return Object.keys(control.errors).concat();
     }
     return null;
   }
 
-  dateBetween(from: string, to: string) {
-    type errorOrNull = Record<string, unknown> | null;
+  dateBetween(min: Date, max: Date) {
+    return function validate(control: AbstractControl) {
+      const value = new Date(control.value);
 
-    return function validate(group: FormGroup): errorOrNull {
-      const f = group.controls[from];
-      const t = group.controls[to];
-      if (f.value > t.value) {
+      if (value < min || value > max) {
         return {
-          'dates-range-invalid': true,
+          'date-between-invalid': true,
+        };
+      }
+
+      return null;
+    };
+  }
+
+  datesInRange(from: string, to: string) {
+    return function validate(group: FormGroup) {
+      const fromControl = group.controls[from];
+      const toControl = group.controls[to];
+      if (fromControl.value > toControl.value) {
+        return {
+          'dates-in-range-invalid': true,
         };
       }
       return null;

@@ -10,19 +10,30 @@ import { ValidatorsService } from '@vitae/data';
 })
 export class DateRangeFormComponent {
   form!: FormGroup;
+  private readonly minDate = new Date(1960, 0, 1);
+  private readonly maxDate = new Date(2060, 0, 1);
   constructor(private fb: FormBuilder, private validators: ValidatorsService) {}
 
   public createFormGroup(fromDate, toDate): FormGroup {
     this.form = this.fb.group(
       {
-        fromDate: new FormControl(this.validators.getValidDate(fromDate)),
-        toDate: new FormControl(this.validators.getValidDate(toDate)),
+        fromDate: new FormControl(
+          this.validators.getInputValueFromDate(fromDate),
+          this.validators.dateBetween(this.minDate, this.maxDate)
+        ),
+        toDate: new FormControl(
+          this.validators.getInputValueFromDate(toDate),
+          this.validators.dateBetween(this.minDate, this.maxDate)
+        ),
       },
       {
-        validator: this.validators.dateBetween('fromDate', 'toDate'),
+        validator: this.validators.datesInRange('fromDate', 'toDate'),
       }
     );
     this.form.markAsTouched();
     return this.form;
+  }
+  getErrorMessage(controlName?: string) {
+    return this.validators.getErrorMessage(this.form, controlName);
   }
 }

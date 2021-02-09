@@ -29,7 +29,7 @@ export class SearchFormComponent implements OnInit {
   form!: FormGroup;
 
   @ViewChild(DateRangeFormComponent, { static: true })
-  public dateRangeComponent: DateRangeFormComponent;
+  dateRangeComponent: DateRangeFormComponent;
 
   constructor(private fb: FormBuilder, private validators: ValidatorsService) {}
 
@@ -62,7 +62,7 @@ export class SearchFormComponent implements OnInit {
 
     this.search.next(searchParams);
   }
-  getErrorMessage(controlName: string) {
+  getErrorMessage(controlName?: string) {
     return this.validators.getErrorMessage(this.form, controlName);
   }
 }
