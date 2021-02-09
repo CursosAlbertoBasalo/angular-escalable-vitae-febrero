@@ -50,14 +50,14 @@ export class CoreRoutingModule {
     private headService: HeadService
   ) {
     this.router.events.subscribe((routerEvent) => {
-      console.log(routerEvent);
+      // console.log(routerEvent);
       if (routerEvent instanceof NavigationEnd) {
         const routeData = this.activatedRoute.firstChild?.snapshot.data;
         if (routeData) {
           this.headService.setTitle(routeData.pageTitle || '');
           this.headService.setDescription(routeData.pageDescription || '');
         }
-        console.warn('Do something with new URL ' + routerEvent.url);
+        // console.warn('Do something with new URL ' + routerEvent.url);
       }
     });
   }
