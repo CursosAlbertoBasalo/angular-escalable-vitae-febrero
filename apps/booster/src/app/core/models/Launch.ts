@@ -4,6 +4,6 @@ export interface Launch {
   net: Date;
   status: { name: string };
   location?: string;
-  pad: string | { name: string; location: { name: string } };
+  pad: { name: string; location: { name: string } } | string;
   agencyName: string;
 }
