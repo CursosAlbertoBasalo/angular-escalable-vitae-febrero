@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Agency } from '../models/Agency';
 import { Launch } from '../models/Launch';
+import { ApiStatusStoreService } from './api-status-store.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,9 +14,13 @@ import { Launch } from '../models/Launch';
 export class AgenciesService {
   private readonly endpoint = 'agencies';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private apiStatus: ApiStatusStoreService
+  ) {}
 
   getById$(agencyId: string) {
+    this.apiStatus.state = { isLoading: true, errorMessage: null };
     const launchByIdUrl = `${this.getEndpointUrl()}/${agencyId}/`;
     return this.http
       .get<Launch>(launchByIdUrl)
@@ -23,6 +28,7 @@ export class AgenciesService {
   }
 
   getByName$(agencyName: string) {
+    this.apiStatus.state = { isLoading: true, errorMessage: null };
     const endPointUrl = `${this.getEndpointUrl()}`;
     const launchesByQueryUrl = `${endPointUrl}?search=${agencyName}`;
     return this.http

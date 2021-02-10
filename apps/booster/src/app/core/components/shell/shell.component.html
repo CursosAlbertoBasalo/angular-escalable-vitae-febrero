@@ -6,7 +6,6 @@
     <a routerLink="comments"> 💬 Comments </a>
   </nav>
   <span *ngIf="statusBar$ | async as statusBar">
-    {{statusBar|json}}
     <vitae-ui-progress [data]="statusBar">
     </vitae-ui-progress>
   </span>

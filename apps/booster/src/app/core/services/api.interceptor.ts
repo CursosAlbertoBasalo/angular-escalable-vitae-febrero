@@ -18,7 +18,7 @@ export class ApiInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    this.apiStatus.state = { isLoading: true, errorMessage: null };
+    // this.apiStatus.state = { isLoading: true, errorMessage: null };
     return next.handle(request).pipe(
       tap((event) => this.auditResponse(event)),
       catchError((err) => this.onError(err))

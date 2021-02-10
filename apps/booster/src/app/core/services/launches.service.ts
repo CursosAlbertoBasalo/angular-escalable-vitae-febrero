@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ApiResult } from '../models/Api-results';
 import { Launch } from '../models/Launch';
+import { ApiStatusStoreService } from './api-status-store.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,16 +14,19 @@ import { Launch } from '../models/Launch';
 export class LaunchesService {
   private readonly endpoint = 'launch';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private apiStatus: ApiStatusStoreService
+  ) {}
 
   getById$(launchId: string) {
+    this.apiStatus.state = { isLoading: true, errorMessage: null };
     const launchByIdUrl = `${this.getEndpointUrl()}/${launchId}/`;
     return this.http.get<Launch>(launchByIdUrl).pipe();
   }
 
-  // ToDo: reuse pipe --->
-
   getByQuery$(queryParams: { numberOfLaunches: number; searchTerm: string }) {
+    this.apiStatus.state = { isLoading: true, errorMessage: null };
     const endPointUrl = `${this.getEndpointUrl()}?${this.modeList()}`;
     const query = `${queryParams.numberOfLaunches}&search=${queryParams.searchTerm}`;
     const launchesByQueryUrl = `${endPointUrl}&${query}`;
@@ -33,6 +37,7 @@ export class LaunchesService {
   }
 
   getUpcoming$() {
+    this.apiStatus.state = { isLoading: true, errorMessage: null };
     const endPointUrl = `${this.getEndpointUrl()}/upcoming?${this.modeList()}`;
     return this.http.get<ApiResult>(endPointUrl).pipe(
       map((data) => this.transformLaunchData(data)),

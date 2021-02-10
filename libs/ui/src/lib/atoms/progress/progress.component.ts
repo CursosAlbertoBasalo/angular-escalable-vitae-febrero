@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ProgressStatus } from '../../models/ProgressStatus';
 
 @Component({
   selector: 'vitae-ui-progress',
@@ -7,5 +8,5 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProgressComponent {
-  @Input() data!: { visible: boolean; error: boolean };
+  @Input() data!: ProgressStatus;
 }
