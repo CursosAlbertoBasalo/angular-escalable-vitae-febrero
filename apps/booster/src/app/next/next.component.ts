@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Card, Results } from '@vitae/ui';
-import { Launch } from '../launch';
+import { Launch } from '../core/models/Launch';
 
 // ! Page Container. Gets its data from resolver and passes it to presenters
 // No easy way to show a laoder nor an error

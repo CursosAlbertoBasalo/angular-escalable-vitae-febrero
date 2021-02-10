@@ -3,9 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HeadService } from '@vitae/ui';
 import { Observable, of } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
+import { Launch } from '../core/models/launch';
+import { QueryParams } from '../core/models/Query-params';
 import { LaunchesService } from '../core/services/launches.service';
-import { Launch } from '../launch';
-import { QueryParams } from '../Query-params';
 
 // ! Page Container. Gets observables and passes data to presenters
 
@@ -16,7 +16,7 @@ import { QueryParams } from '../Query-params';
 })
 export class HomeComponent {
   private readonly initialQuery = {
-    numberOfLaunches: 0,
+    numberOfLaunches: 10,
     searchTerm: 'Shuttle',
     fromDate: new Date(1980, 0, 1),
     toDate: new Date(1989, 11, 31),
@@ -41,10 +41,10 @@ export class HomeComponent {
     });
   }
 
-  getSpaceData() {
+  getSpaceData(queryParams) {
     this.searching = true;
     this.theProblem = '';
-    this.launches$ = this.launches.getByQuery(this.queryParams).pipe(
+    this.launches$ = this.launches.getByQuery$(queryParams).pipe(
       tap((launches) => this.head.setTitle('🔎 ' + launches.length)),
       catchError((err) => {
         this.theProblem = err.message;
@@ -54,7 +54,7 @@ export class HomeComponent {
     );
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: this.queryParams,
+      queryParams: queryParams,
       queryParamsHandling: 'merge',
     });
   }

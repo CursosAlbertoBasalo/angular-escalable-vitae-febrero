@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Card, Results } from '@vitae/ui';
-import { Launch } from '../../launch';
+import { Launch } from '../../core/models/launch';
 
 @Component({
   selector: 'vitae-launches-list',

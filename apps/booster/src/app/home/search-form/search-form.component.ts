@@ -14,7 +14,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ValidatorsService } from '@vitae/data';
-import { QueryParams } from '../../Query-params';
+import { QueryParams } from '../../core/models/Query-params';
 import { DateRangeFormComponent } from './date-range-form/date-range-form.component';
 
 @Component({
