@@ -4,6 +4,7 @@
   <nav>
     <a routerLink="next"> 📅 Next launches </a>
     <a routerLink="comments"> 💬 Comments </a>
+    <vitae-favorites-counter></vitae-favorites-counter>
   </nav>
   <span *ngIf="statusBar$ | async as statusBar">
     <vitae-ui-progress [data]="statusBar">

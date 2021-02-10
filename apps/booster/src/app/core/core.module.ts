@@ -8,9 +8,10 @@ import { UiModule } from '@vitae/ui';
 import { ShellComponent } from './components/shell/shell.component';
 import { CoreRoutingModule } from './core-routing.module';
 import { ApiInterceptor } from './services/api.interceptor';
+import { FavoritesCounterComponent } from './components/favorites-counter/favorites-counter.component';
 
 @NgModule({
-  declarations: [ShellComponent],
+  declarations: [ShellComponent, FavoritesCounterComponent],
   exports: [ShellComponent],
   imports: [
     CommonModule,

@@ -7,5 +7,8 @@
       <vitae-ui-at-location [data]="{ prefix: 'pad:', location: launch.pad.name }">
       </vitae-ui-at-location>
     </main>
+    <footer>
+      <input type="button" (click)="toggleFav(launch)" value="⭐">
+    </footer>
   </vitae-ui-card>
 </section>
