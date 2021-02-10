@@ -1,0 +1,14 @@
+<header>
+  <h1 routerLink="">{{ title }}</h1>
+  <p>Angular application example for lift off 🚀</p>
+  <nav>
+    <a routerLink="next"> 📅 Next launches </a>
+    <a routerLink="comments"> 💬 Comments </a>
+  </nav>
+  <span *ngIf="statusBar$ | async as statusBar">
+    {{statusBar|json}}
+    <vitae-ui-progress [data]="statusBar">
+    </vitae-ui-progress>
+  </span>
+</header>
+<router-outlet></router-outlet>

@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'apps/booster/src/environments/environment';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { ApiResult } from '../../Api-results';
+import { Agency } from '../models/Agency';
 import { Launch } from '../models/Launch';
 
 @Injectable({
@@ -25,10 +25,9 @@ export class AgenciesService {
   getByName$(agencyName: string) {
     const endPointUrl = `${this.getEndpointUrl()}`;
     const launchesByQueryUrl = `${endPointUrl}?search=${agencyName}`;
-    return this.http.get<ApiResult>(launchesByQueryUrl).pipe(
-      map((data) => data.results[0]),
-      catchError((err) => of({}))
-    );
+    return this.http
+      .get<{ results: Agency[] }>(launchesByQueryUrl)
+      .pipe(map((data) => data.results[0]));
   }
 
   private getEndpointUrl(modeList?: boolean) {

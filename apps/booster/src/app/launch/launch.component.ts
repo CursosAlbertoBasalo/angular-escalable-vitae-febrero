@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { Launch } from '../core/models/launch';
 import { LaunchesService } from '../core/services/launches.service';
-import { Launch } from '../launch';
 
 // ! Page Container. Gets parameter before query and passes data to presenters
 // ToDo: show a loader message and an error if ocurred

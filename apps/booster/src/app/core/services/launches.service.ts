@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'apps/booster/src/environments/environment';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { ApiResult } from '../../Api-results';
+import { ApiResult } from '../models/Api-results';
 import { Launch } from '../models/Launch';
 
 @Injectable({
@@ -17,9 +17,7 @@ export class LaunchesService {
 
   getById$(launchId: string) {
     const launchByIdUrl = `${this.getEndpointUrl()}/${launchId}/`;
-    return this.http
-      .get<Launch>(launchByIdUrl)
-      .pipe(catchError((err) => of({})));
+    return this.http.get<Launch>(launchByIdUrl).pipe();
   }
 
   // ToDo: reuse pipe --->
@@ -44,7 +42,7 @@ export class LaunchesService {
   private transformLaunchData(data: ApiResult): any[] {
     return data.results.map((result) => ({
       ...result,
-      agencyName: result.lsp_name,
+      agencyName: result['lsp_name'],
     }));
   }
 
