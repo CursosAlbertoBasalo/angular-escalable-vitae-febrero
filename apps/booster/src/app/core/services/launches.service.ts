@@ -6,6 +6,7 @@ import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ApiResult } from '../models/Api-results';
 import { Launch } from '../models/Launch';
+import { QueryParams } from '../models/Query-params';
 import { ApiStatusStoreService } from './api-status-store.service';
 
 @Injectable({
@@ -25,10 +26,16 @@ export class LaunchesService {
     return this.http.get<Launch>(launchByIdUrl).pipe();
   }
 
-  getByQuery$(queryParams: { numberOfLaunches: number; searchTerm: string }) {
+  getByQuery$(queryParams: QueryParams) {
     this.apiStatus.state = { isLoading: true, errorMessage: null };
     const endPointUrl = `${this.getEndpointUrl()}?${this.modeList()}`;
-    const query = `${queryParams.numberOfLaunches}&search=${queryParams.searchTerm}`;
+    let query = `limit=${queryParams.numberOfLaunches}&search=${queryParams.searchTerm}`;
+    if (queryParams.fromDate) {
+      query += `&net__gt=${queryParams.fromDate}`;
+    }
+    if (queryParams.toDate) {
+      query += `&net__lt=${queryParams.toDate}`;
+    }
     const launchesByQueryUrl = `${endPointUrl}&${query}`;
     return this.http.get<ApiResult>(launchesByQueryUrl).pipe(
       map((data) => this.transformLaunchData(data)),

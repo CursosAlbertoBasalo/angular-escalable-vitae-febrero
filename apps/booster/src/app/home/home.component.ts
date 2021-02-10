@@ -41,10 +41,10 @@ export class HomeComponent {
     });
   }
 
-  getSpaceData() {
+  getSpaceData(queryParams) {
     this.searching = true;
     this.theProblem = '';
-    this.launches$ = this.launches.getByQuery$(this.queryParams).pipe(
+    this.launches$ = this.launches.getByQuery$(queryParams).pipe(
       tap((launches) => this.head.setTitle('🔎 ' + launches.length)),
       catchError((err) => {
         this.theProblem = err.message;
@@ -54,7 +54,7 @@ export class HomeComponent {
     );
     this.router.navigate([], {
       relativeTo: this.route,
-      queryParams: this.queryParams,
+      queryParams: queryParams,
       queryParamsHandling: 'merge',
     });
   }
