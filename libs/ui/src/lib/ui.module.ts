@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AtLocationComponent } from './atoms/at-location/at-location.component';
 import { ByAgencyComponent } from './atoms/by-agency/by-agency.component';
@@ -8,13 +9,14 @@ import { ProgressComponent } from './atoms/progress/progress.component';
 import { TitleComponent } from './atoms/title/title.component';
 import { ErrorMessageComponent } from './molecules/error-message/error-message.component';
 import { ResultsHeaderComponent } from './molecules/results-header/results-header.component';
+import { SearchInputComponent } from './molecules/search-input/search-input.component';
 import { WaitingMessageComponent } from './molecules/waiting-message/waiting-message.component';
 import { CardComponent } from './templates/card/card.component';
 import { ExplorerComponent } from './templates/explorer/explorer.component';
 import { ResultsComponent } from './templates/results/results.component';
 
 @NgModule({
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, ReactiveFormsModule],
   declarations: [
     TitleComponent,
     ExplorerComponent,
@@ -27,6 +29,7 @@ import { ResultsComponent } from './templates/results/results.component';
     ResultsComponent,
     ByAgencyComponent,
     ProgressComponent,
+    SearchInputComponent,
   ],
   exports: [
     TitleComponent,
@@ -40,6 +43,7 @@ import { ResultsComponent } from './templates/results/results.component';
     ErrorMessageComponent,
     ResultsComponent,
     ProgressComponent,
+    SearchInputComponent,
   ],
 })
 export class UiModule {}

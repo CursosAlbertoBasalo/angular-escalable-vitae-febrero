@@ -27,7 +27,7 @@ export class LaunchesService {
   getByQuery$(queryParams: QueryParams) {
     this.apiStatus.state = { isLoading: true, errorMessage: null };
     const endPointUrl = `${this.getEndpointUrl()}?${this.modeList()}`;
-    let query = `limit=${queryParams.numberOfLaunches}&search=${queryParams.searchTerm}`;
+    let query = `limit=${queryParams.limit}&search=${queryParams.term}`;
     if (queryParams.fromDate) {
       query += `&net__gt=${queryParams.fromDate}`;
     }

@@ -39,8 +39,8 @@ export class AgencyComponent implements OnInit {
       tap({
         next: (agency) =>
           (this.launches$ = this.launches.getByQuery$({
-            numberOfLaunches: 1,
-            searchTerm: agency.name,
+            limit: 1,
+            term: agency.name,
           })),
       })
     );
@@ -57,8 +57,8 @@ export class AgencyComponent implements OnInit {
         forkJoin([
           this.agencies.getByName$(agencyName),
           this.launches.getByQuery$({
-            numberOfLaunches: 1,
-            searchTerm: agencyName,
+            limit: 1,
+            term: agencyName,
           }),
         ])
       )
@@ -77,8 +77,8 @@ export class AgencyComponent implements OnInit {
           next: (agencyName) => {
             this.agency$ = this.agencies.getByName$(agencyName);
             this.launches$ = this.launches.getByQuery$({
-              numberOfLaunches: 1,
-              searchTerm: agencyName,
+              limit: 1,
+              term: agencyName,
             });
           },
         })
