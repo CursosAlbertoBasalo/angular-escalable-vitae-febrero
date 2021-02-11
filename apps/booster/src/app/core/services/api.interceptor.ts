@@ -31,7 +31,9 @@ export class ApiInterceptor implements HttpInterceptor {
     this.apiStatus.state = { isLoading: true, errorMessage: null };
 
     return next.handle(request).pipe(
-      tap((event) => this.auditResponse(event)),
+      tap({
+        next: (event) => this.auditResponse(event),
+      }),
       retryWhen((error$) => this.serverErrorLimited(error$)),
       map((event: HttpResponse<any>) => this.transformResponse(event)),
       catchError((error) => this.onError(error))
