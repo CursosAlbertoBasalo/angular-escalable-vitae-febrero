@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { StoreService } from '@vitae/data';
 import { ApiStatus } from '../models/ApiStatus';
+import { StoreService } from './store.service';
 
 @Injectable({
   providedIn: 'root',

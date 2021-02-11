@@ -36,13 +36,13 @@ export class AgencyComponent implements OnInit {
     this.agency$ = this.route.params.pipe(
       map((params) => params.id),
       switchMap((agencyName) => this.agencies.getByName$(agencyName)),
-      tap(
-        (agency) =>
+      tap({
+        next: (agency) =>
           (this.launches$ = this.launches.getByQuery$({
             numberOfLaunches: 1,
             searchTerm: agency.name,
-          }))
-      )
+          })),
+      })
     );
   }
 
@@ -73,12 +73,14 @@ export class AgencyComponent implements OnInit {
     this.route.params
       .pipe(
         map((params) => params.id),
-        tap((agencyName) => {
-          this.agency$ = this.agencies.getByName$(agencyName);
-          this.launches$ = this.launches.getByQuery$({
-            numberOfLaunches: 1,
-            searchTerm: agencyName,
-          });
+        tap({
+          next: (agencyName) => {
+            this.agency$ = this.agencies.getByName$(agencyName);
+            this.launches$ = this.launches.getByQuery$({
+              numberOfLaunches: 1,
+              searchTerm: agencyName,
+            });
+          },
         })
       )
       .subscribe();

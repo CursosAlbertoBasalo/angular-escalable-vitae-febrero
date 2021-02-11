@@ -8,12 +8,19 @@ export class StoreService<StateType> {
   readonly state$ = this.stateSubject$.asObservable();
 
   get state(): StateType {
+    return this.getState();
+  }
+  set state(state: StateType) {
+    this.setState(state);
+  }
+
+  getState() {
     const currentValue = this.stateSubject$.value;
     return this.needsDeepClone
       ? this.deepClone(currentValue)
       : { ...currentValue };
   }
-  set state(state: StateType) {
+  setState(state: StateType) {
     const newState = this.needsDeepClone ? this.deepClone(state) : { ...state };
     this.stateSubject$.next(newState);
   }
