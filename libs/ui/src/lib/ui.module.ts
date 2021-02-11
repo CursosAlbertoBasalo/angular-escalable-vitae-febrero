@@ -15,6 +15,7 @@ import { WaitingMessageComponent } from './molecules/waiting-message/waiting-mes
 import { CardComponent } from './templates/card/card.component';
 import { ExplorerComponent } from './templates/explorer/explorer.component';
 import { ResultsComponent } from './templates/results/results.component';
+import { TimeToGoPipe } from './pipes/time-to-go.pipe';
 
 @NgModule({
   imports: [CommonModule, RouterModule, ReactiveFormsModule],
@@ -32,6 +33,7 @@ import { ResultsComponent } from './templates/results/results.component';
     ProgressComponent,
     SearchInputComponent,
     ReactiveInputComponent,
+    TimeToGoPipe,
   ],
   exports: [
     TitleComponent,
@@ -47,6 +49,7 @@ import { ResultsComponent } from './templates/results/results.component';
     ProgressComponent,
     SearchInputComponent,
     ReactiveInputComponent,
+    TimeToGoPipe,
   ],
 })
 export class UiModule {}

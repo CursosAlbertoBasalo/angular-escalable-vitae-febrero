@@ -3,6 +3,7 @@
                  [data]="getCard(launch)">
     <main>
       <vitae-ui-on-time [data]="{ time: launch.net }"></vitae-ui-on-time>
+      <div><i>{{launch.net | timeToGo}}</i></div>
       <vitae-ui-at-location [data]="{ location: launch.location }"></vitae-ui-at-location>
       <vitae-ui-at-location [data]="{ prefix: 'pad:', location: launch.pad }">
       </vitae-ui-at-location>
