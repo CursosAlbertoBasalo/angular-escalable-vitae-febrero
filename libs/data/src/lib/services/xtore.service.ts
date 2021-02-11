@@ -1,6 +1,8 @@
 import { queueScheduler } from 'rxjs';
 import { distinctUntilChanged, map } from 'rxjs/operators';
 import { StoreService } from './store.service';
+
+// ToDo: define Action with payload
 type Action<StateType> = (state: StateType) => StateType;
 
 export class XtoreService<StateType> extends StoreService<StateType> {
@@ -14,7 +16,7 @@ export class XtoreService<StateType> extends StoreService<StateType> {
   }
   private executeAction(action: Action<StateType>, state: StateType) {
     const newState = action(state);
-    // ToDo: write to an instumental log
+    // ToDo: write to an instumental log like ReduxWebTools
     this.state = newState;
   }
 

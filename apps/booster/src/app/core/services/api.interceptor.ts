@@ -39,15 +39,6 @@ export class ApiInterceptor implements HttpInterceptor {
       catchError((error) => this.onError(error))
     );
   }
-  transformResponse(event: HttpResponse<any>) {
-    if (event instanceof HttpResponse) {
-      if (event.url.includes('mode=list')) {
-        return event.clone({ body: event.body['results'] || [] });
-      }
-    }
-    return event;
-  }
-
   serverErrorLimited(error$: Observable<HttpErrorResponse>) {
     return error$.pipe(
       concatMap((error, count) =>
@@ -55,6 +46,14 @@ export class ApiInterceptor implements HttpInterceptor {
       ),
       delay(DELAYED_RETRY_MS)
     );
+  }
+  transformResponse(event: HttpResponse<any>) {
+    if (event instanceof HttpResponse) {
+      if (event.url.includes('mode=list')) {
+        return event.clone({ body: event.body['results'] || [] });
+      }
+    }
+    return event;
   }
 
   auditResponse(event) {
