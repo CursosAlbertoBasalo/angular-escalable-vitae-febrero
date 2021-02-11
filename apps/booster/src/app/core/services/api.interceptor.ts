@@ -7,9 +7,12 @@ import {
   HttpResponse,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
-import { ApiStatusStoreService } from './api-status-store.service';
+import { ApiStatusStoreService } from '@vitae/data';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, concatMap, delay, retryWhen, tap } from 'rxjs/operators';
+
+const RETRY_MAX = 3;
+const DELAYED_RETRY_MS = 3000;
 
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
@@ -18,10 +21,21 @@ export class ApiInterceptor implements HttpInterceptor {
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {
-    // this.apiStatus.state = { isLoading: true, errorMessage: null };
+    this.apiStatus.state = { isLoading: true, errorMessage: null };
+
     return next.handle(request).pipe(
       tap((event) => this.auditResponse(event)),
-      catchError((err) => this.onError(err))
+      retryWhen((error$) => this.serverErrorLimited(error$)),
+      catchError((error) => this.onError(error))
+    );
+  }
+
+  serverErrorLimited(error$: Observable<HttpErrorResponse>) {
+    return error$.pipe(
+      concatMap((error, count) =>
+        this.canRetry(error, count) ? of(error) : throwError(error)
+      ),
+      delay(DELAYED_RETRY_MS)
     );
   }
 
@@ -36,5 +50,9 @@ export class ApiInterceptor implements HttpInterceptor {
     console.error(`${err.status} : ${err.message}`);
     this.apiStatus.state = { isLoading: false, errorMessage: err.message };
     return throwError(err);
+  }
+
+  private canRetry(error: HttpErrorResponse, count: number) {
+    return (error.status == 0 || error.status >= 500) && count < RETRY_MAX;
   }
 }

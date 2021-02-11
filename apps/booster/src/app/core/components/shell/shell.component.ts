@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { ApiStatusStoreService } from '@vitae/data';
 import { ProgressStatus } from '@vitae/ui';
+import { ApiStatus } from 'libs/data/src/lib/models/ApiStatus';
 import { merge, Observable, of } from 'rxjs';
 import { delay, distinctUntilChanged, map, mergeMap } from 'rxjs/operators';
-import { ApiStatus } from '../../models/ApiStatus';
-import { ApiStatusStoreService } from '../../services/api-status-store.service';
 
 @Component({
   selector: 'vitae-shell',

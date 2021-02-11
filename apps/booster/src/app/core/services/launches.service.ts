@@ -1,13 +1,13 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ApiStatusStoreService } from '@vitae/data';
 import { environment } from 'apps/booster/src/environments/environment';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ApiResult } from '../models/Api-results';
 import { Launch } from '../models/Launch';
 import { QueryParams } from '../models/Query-params';
-import { ApiStatusStoreService } from './api-status-store.service';
 
 @Injectable({
   providedIn: 'root',

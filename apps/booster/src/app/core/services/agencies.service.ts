@@ -1,12 +1,12 @@
 /* eslint-disable @nrwl/nx/enforce-module-boundaries */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ApiStatusStoreService } from '@vitae/data';
 import { environment } from 'apps/booster/src/environments/environment';
 import { of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { Agency } from '../models/Agency';
 import { Launch } from '../models/Launch';
-import { ApiStatusStoreService } from './api-status-store.service';
 
 @Injectable({
   providedIn: 'root',
