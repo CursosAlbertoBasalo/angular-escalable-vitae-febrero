@@ -52,10 +52,10 @@ export class SearchFormComponent implements OnInit {
 
   getSpaceData() {
     const value = this.form.value;
-
+    console.log(value);
     const searchParams = {
-      searchTerm: value.searchTerm,
-      numberOfLaunches: value.numberOfLaunches,
+      term: value.searchTerm,
+      limit: value.numberOfLaunches,
       fromDate: value.dateRange.fromDate,
       toDate: value.dateRange.toDate,
     };

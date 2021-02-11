@@ -16,8 +16,8 @@ import { LaunchesService } from '../core/services/launches.service';
 })
 export class HomeComponent {
   private readonly initialQuery = {
-    numberOfLaunches: 10,
-    searchTerm: 'Shuttle',
+    limit: 10,
+    term: 'Shuttle',
     fromDate: new Date(1980, 0, 1),
     toDate: new Date(1989, 11, 31),
   };

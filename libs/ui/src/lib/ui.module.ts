@@ -8,6 +8,7 @@ import { OnTimeComponent } from './atoms/on-time/on-time.component';
 import { ProgressComponent } from './atoms/progress/progress.component';
 import { TitleComponent } from './atoms/title/title.component';
 import { ErrorMessageComponent } from './molecules/error-message/error-message.component';
+import { ReactiveInputComponent } from './molecules/reactive-input/reactive-input.component';
 import { ResultsHeaderComponent } from './molecules/results-header/results-header.component';
 import { SearchInputComponent } from './molecules/search-input/search-input.component';
 import { WaitingMessageComponent } from './molecules/waiting-message/waiting-message.component';
@@ -30,6 +31,7 @@ import { ResultsComponent } from './templates/results/results.component';
     ByAgencyComponent,
     ProgressComponent,
     SearchInputComponent,
+    ReactiveInputComponent,
   ],
   exports: [
     TitleComponent,
@@ -44,6 +46,7 @@ import { ResultsComponent } from './templates/results/results.component';
     ResultsComponent,
     ProgressComponent,
     SearchInputComponent,
+    ReactiveInputComponent,
   ],
 })
 export class UiModule {}
