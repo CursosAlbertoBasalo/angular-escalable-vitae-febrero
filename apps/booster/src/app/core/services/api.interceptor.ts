@@ -9,7 +9,14 @@ import {
 import { Injectable } from '@angular/core';
 import { ApiStatusStoreService } from '@vitae/data';
 import { Observable, of, throwError } from 'rxjs';
-import { catchError, concatMap, delay, retryWhen, tap } from 'rxjs/operators';
+import {
+  catchError,
+  concatMap,
+  delay,
+  map,
+  retryWhen,
+  tap,
+} from 'rxjs/operators';
 
 const RETRY_MAX = 3;
 const DELAYED_RETRY_MS = 3000;
@@ -26,8 +33,17 @@ export class ApiInterceptor implements HttpInterceptor {
     return next.handle(request).pipe(
       tap((event) => this.auditResponse(event)),
       retryWhen((error$) => this.serverErrorLimited(error$)),
+      map((event: HttpResponse<any>) => this.transformResponse(event)),
       catchError((error) => this.onError(error))
     );
+  }
+  transformResponse(event: HttpResponse<any>) {
+    if (event instanceof HttpResponse) {
+      if (event.url.includes('mode=list')) {
+        return event.clone({ body: event.body['results'] || [] });
+      }
+    }
+    return event;
   }
 
   serverErrorLimited(error$: Observable<HttpErrorResponse>) {

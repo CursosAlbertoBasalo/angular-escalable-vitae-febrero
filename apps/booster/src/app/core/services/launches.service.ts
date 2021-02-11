@@ -3,9 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiStatusStoreService } from '@vitae/data';
 import { environment } from 'apps/booster/src/environments/environment';
-import { of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
-import { ApiResult } from '../models/Api-results';
+import { map } from 'rxjs/operators';
 import { Launch } from '../models/Launch';
 import { QueryParams } from '../models/Query-params';
 
@@ -23,7 +21,7 @@ export class LaunchesService {
   getById$(launchId: string) {
     this.apiStatus.state = { isLoading: true, errorMessage: null };
     const launchByIdUrl = `${this.getEndpointUrl()}/${launchId}/`;
-    return this.http.get<Launch>(launchByIdUrl).pipe();
+    return this.http.get<Launch>(launchByIdUrl);
   }
 
   getByQuery$(queryParams: QueryParams) {
@@ -37,28 +35,26 @@ export class LaunchesService {
       query += `&net__lt=${queryParams.toDate}`;
     }
     const launchesByQueryUrl = `${endPointUrl}&${query}`;
-    return this.http.get<ApiResult>(launchesByQueryUrl).pipe(
-      map((data) => this.transformLaunchData(data)),
-      catchError((err) => of([]))
-    );
+    return this.http
+      .get<Launch[]>(launchesByQueryUrl)
+      .pipe(map((data) => this.transformLaunchData(data)));
   }
 
   getUpcoming$() {
     this.apiStatus.state = { isLoading: true, errorMessage: null };
     const endPointUrl = `${this.getEndpointUrl()}/upcoming?${this.modeList()}`;
-    return this.http.get<ApiResult>(endPointUrl).pipe(
-      map((data) => this.transformLaunchData(data)),
-      catchError((err) => of([]))
-    );
+    return this.http
+      .get<Launch[]>(endPointUrl)
+      .pipe(map((data) => this.transformLaunchData(data)));
   }
-  private transformLaunchData(data: ApiResult): any[] {
-    return data.results.map((result) => ({
+  private transformLaunchData(data: Launch[]): Launch[] {
+    return data.map((result) => ({
       ...result,
       agencyName: result['lsp_name'],
     }));
   }
 
-  private getEndpointUrl(modeList?: boolean) {
+  private getEndpointUrl() {
     return `${environment.rootUrl}/${this.endpoint}`;
   }
   private modeList() {
