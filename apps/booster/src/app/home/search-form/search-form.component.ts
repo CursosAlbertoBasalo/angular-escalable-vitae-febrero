@@ -35,11 +35,11 @@ export class SearchFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      searchTerm: new FormControl(this.queryParams.searchTerm, [
+      searchTerm: new FormControl(this.queryParams.term, [
         Validators.required,
         Validators.minLength(2),
       ]),
-      numberOfLaunches: new FormControl(this.queryParams.numberOfLaunches, [
+      numberOfLaunches: new FormControl(this.queryParams.limit, [
         Validators.min(1),
         Validators.max(100),
       ]),
@@ -52,10 +52,10 @@ export class SearchFormComponent implements OnInit {
 
   getSpaceData() {
     const value = this.form.value;
-
+    console.log(value);
     const searchParams = {
-      searchTerm: value.searchTerm,
-      numberOfLaunches: value.numberOfLaunches,
+      term: value.searchTerm,
+      limit: value.numberOfLaunches,
       fromDate: value.dateRange.fromDate,
       toDate: value.dateRange.toDate,
     };

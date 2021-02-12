@@ -6,6 +6,7 @@ import { environment } from 'apps/booster/src/environments/environment';
 import { map } from 'rxjs/operators';
 import { Agency } from '../models/Agency';
 import { Launch } from '../models/Launch';
+import { QueryParams } from '../models/Query-params';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +32,13 @@ export class AgenciesService {
     return this.http
       .get<Agency[]>(launchesByQueryUrl)
       .pipe(map((data) => data[0]));
+  }
+  getByQuery$(queryParams: QueryParams) {
+    this.apiStatus.state = { isLoading: true, errorMessage: null };
+    const endPointUrl = `${this.getEndpointUrl()}?${this.modeList()}`;
+    const query = `limit=${queryParams.limit}&search=${queryParams.term}`;
+    const launchesByQueryUrl = `${endPointUrl}&${query}`;
+    return this.http.get<Agency[]>(launchesByQueryUrl);
   }
 
   private getEndpointUrl(modeList?: boolean) {

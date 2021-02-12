@@ -1,6 +1,6 @@
 export interface QueryParams {
-  searchTerm: string;
-  numberOfLaunches: number;
+  term: string;
+  limit: number;
   fromDate?: Date;
   toDate?: Date;
 }
