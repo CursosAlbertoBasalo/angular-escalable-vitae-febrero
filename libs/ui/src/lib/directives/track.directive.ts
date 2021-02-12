@@ -7,15 +7,13 @@ import { TrackingService } from '../services/tracking.service';
 })
 export class TrackDirective {
   @Input('vitaeUiTrack') param?: string;
-  @HostListener('click')
-  onClick() {
+  @HostListener('click') onClick() {
     this.trackUserInteraction('click');
   }
-
-  @HostListener('mouseover')
-  onMouseover() {
+  @HostListener('mouseover') onMouseover() {
     this.trackUserInteraction('mouseover');
   }
+
   constructor(private el: ElementRef, private tracking: TrackingService) {}
 
   private trackUserInteraction(action: string) {
@@ -25,7 +23,6 @@ export class TrackDirective {
       param: this.getParam(),
     });
   }
-
   private getParam() {
     if (this.param) return this.param;
     const native = this.el.nativeElement;

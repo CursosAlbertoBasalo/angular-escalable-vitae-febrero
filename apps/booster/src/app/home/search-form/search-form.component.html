@@ -2,16 +2,19 @@
   <legend> Searching {{ queryParams.limit }} launches related to {{ queryParams.term }}
   </legend>
   <vitae-ui-reactive-input
-                           formControlName="searchTerm" label="Search term" controlName="searchTerm"
+                           formControlName="searchTerm"
+                           label="Search term"
+                           controlName="searchTerm"
                            [errorMessage]="getErrorMessage('searchTerm')">
   </vitae-ui-reactive-input>
   <vitae-ui-reactive-input
-                           formControlName="numberOfLaunches" label="Number of launches"
+                           formControlName="numberOfLaunches"
+                           label="Number of launches"
                            controlName="numberOfLaunches"
-                           type="number" [errorMessage]="getErrorMessage('numberOfLaunches')">
+                           type="number"
+                           [errorMessage]="getErrorMessage('numberOfLaunches')">
   </vitae-ui-reactive-input>
   <vitae-date-range-form></vitae-date-range-form>
-  <small
-         *ngIf="getErrorMessage() as errorMessage"><i>{{errorMessage}}</i></small>
+  <small *ngIf="getErrorMessage() as errorMessage"><i>{{ errorMessage }}</i></small>
   <button type="submit" [disabled]="form.invalid">Go !</button>
 </form>

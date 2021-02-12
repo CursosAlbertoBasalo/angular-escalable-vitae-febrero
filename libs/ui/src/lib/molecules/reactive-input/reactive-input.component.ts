@@ -22,7 +22,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 export class ReactiveInputComponent implements ControlValueAccessor {
   @Input() errorMessage = '';
   @Input() controlName = '';
-  @Input() label = 'Label';
+  @Input() label = '';
   @Input() type = 'text';
   value: unknown;
   onChange = (_: any) => {
@@ -39,12 +39,7 @@ export class ReactiveInputComponent implements ControlValueAccessor {
   }
 
   writeValue(value: unknown): void {
-    console.log(value);
-    if (value) {
-      this.value = value || '';
-    } else {
-      this.value = '';
-    }
+    this.value = value || '';
   }
   registerOnChange(fn: any): void {
     this.onChange = fn;

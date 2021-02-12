@@ -1,6 +1,9 @@
 <div>
-  <label for="{{controlName}}">{{label}}</label>
-  <input name="{{controlName}}" type="{{type}}" [value]="value"
+  <label for="{{ controlName }}">{{ label }}</label>
+  <input
+         name="{{ controlName }}"
+         type="{{ type }}"
+         [value]="value"
          (input)="onInput($event.target.value)" />
-  <small *ngIf="errorMessage"><i>{{errorMessage}}</i></small>
+  <small *ngIf="errorMessage"><i>{{ errorMessage }}</i></small>
 </div>
