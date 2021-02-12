@@ -4,11 +4,13 @@
     <main>
       <vitae-ui-on-time [data]="{ time: launch.net }"></vitae-ui-on-time>
       <vitae-ui-at-location [data]="{ location: launch.pad.location.name }"></vitae-ui-at-location>
-      <vitae-ui-at-location [data]="{ prefix: 'pad:', location: launch.pad.name }">
+      <vitae-ui-at-location [data]="{ prefix: 'pad:', location: launch.pad.name }"
+                            [vitaeUiTrack]="launch.pad.name">
       </vitae-ui-at-location>
     </main>
     <footer>
-      <input type="button" (click)="toggleFav(launch)" value="⭐">
+      <input type="button" (click)="toggleFav(launch)" value="⭐" name="fav: {{launch.name}}"
+             vitaeUiTrack>
     </footer>
   </vitae-ui-card>
 </section>
