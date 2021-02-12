@@ -16,10 +16,7 @@ export class SearchComponent {
   ) {}
 
   onSearch(term: string) {
-    const query = {
-      term: term,
-      limit: 1,
-    };
+    const query = { term: term, limit: 1 };
     // ToDo : query by launch mission and by agency administrator
     this.results$ = combineLatest([
       this.lauches.getByQuery$(query),

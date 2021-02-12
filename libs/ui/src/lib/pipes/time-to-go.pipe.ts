@@ -12,8 +12,8 @@ export class TimeToGoPipe implements PipeTransform {
     const hours = Math.round(minutes / 60);
     const days = Math.round(hours / 24);
     const weeks = Math.round(days / 7);
-    const months = Math.round(weeks / 4);
-    const years = Math.round(months / 12);
+    const months = Math.round(days / 30);
+    const years = Math.round(days / 365);
     const decades = Math.round(years / 10);
     if (Math.abs(decades) > 0) {
       return `${Math.abs(decades)} decades ${decades > 0 ? 'ago' : 'ahead'}`;
