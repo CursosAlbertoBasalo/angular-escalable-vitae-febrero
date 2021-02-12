@@ -23,17 +23,15 @@ export class SearchInputComponent implements OnInit {
   constructor(private fb: FormBuilder) {}
   ngOnInit(): void {
     this.termControl = this.fb.control(this.term);
-    this.termControl.valueChanges
+    const controlValues$ = this.termControl.valueChanges;
+    controlValues$
       .pipe(
         debounceTime(500),
         filter((term) => (term as string).length > this.minLength),
         distinctUntilChanged()
       )
       .subscribe({
-        next: (searchTerm) => {
-          this.term = searchTerm;
-          this.search.next(this.term);
-        },
+        next: (searchTerm) => this.search.next(searchTerm),
       });
   }
 }
