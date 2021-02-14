@@ -1,0 +1,256 @@
+openapi: '3.0.2'
+info:
+  title: Proton API
+  description: Backend API example API declaration
+  version: '1.0'
+servers:
+  - url: /api/v1
+paths:
+  /categories:
+    get:
+      description: Get the Category list
+      operationId: getCategories
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+    post:
+      description: Adds a Category to the list
+      operationId: postCategory
+      security:
+        - bearerAuth: []
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        401:
+          $ref: '#/components/responses/401'
+        409:
+          $ref: '#/components/responses/400'
+  /categories/{id}:
+    get:
+      description: Get a Category by Id
+      operationId: getCategoryById
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+    put:
+      description: Updates a Category at the list
+      operationId: putCategory
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'
+    delete:
+      description: Deletes a Category from the list
+      operationId: deleteCategory
+      security:
+        - bearerAuth: []
+      responses:
+        204:
+          $ref: '#/components/responses/200'
+        401:
+          $ref: '#/components/responses/401'
+        404:
+          $ref: '#/components/responses/404'
+  /categories/{id}/items:
+    get:
+      description: Get Items by CategoryId
+      operationId: getItemsByCategoryId
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+  /items:
+    get:
+      description: Get the Item list
+      operationId: getItems
+      parameters:
+        - in: query
+          name: byCategory
+          required: false
+          schema:
+            type: string
+          description: The items of a given category
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+    post:
+      description: Adds a Item to the list
+      operationId: postItem
+      security:
+        - bearerAuth: []
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        409:
+          $ref: '#/components/responses/400'
+  /items/{id}:
+    get:
+      description: Get a Item by Id
+      operationId: getItemById
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+    put:
+      description: Updates a Item at the list
+      operationId: putItem
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+    delete:
+      description: Deletes a Item from the list
+      operationId: deleteItem
+      security:
+        - bearerAuth: []
+      responses:
+        204:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+  /users:
+    post:
+      description: Adds a User to the list
+      operationId: postUser
+      responses:
+        201:
+          $ref: '#/components/responses/201'
+        409:
+          $ref: '#/components/responses/400'
+  /users/activations:
+    put:
+      description: Updates a User activation state
+      operationId: putUserActivation
+      parameters:
+        - in: query
+          name: uat
+          required: true
+          schema:
+            type: string
+          description: User Token
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+  /users/{id}:
+    get:
+      description: Get a User by Id
+      operationId: getUserById
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+    put:
+      description: Updates a User at the list
+      operationId: putUser
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+    delete:
+      description: Deletes a User from the list
+      operationId: deleteUser
+      security:
+        - bearerAuth: []
+      responses:
+        204:
+          $ref: '#/components/responses/200'
+        404:
+          $ref: '#/components/responses/404'
+  /test:
+    get:
+      description: Used as smoke test. Should return OK
+      operationId: test
+      responses:
+        200:
+          $ref: '#/components/responses/200'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+  responses:
+    '200':
+      description: Successful call
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/200'
+    '201':
+      description: Successful added call
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/201'
+    '204':
+      description: Successful deleted call
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/204'
+    '400':
+      description: Bad request. Check your parameters or payload.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/400'
+    '401':
+      description: Authorization information is missing or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/401'
+    '404':
+      description: The resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/404'
+    '5XX':
+      description: Unexpected server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/5XX'
+
+  schemas:
+    200:
+      title: Successful processed response
+      type: object
+    201:
+      title: Successful added response
+      type: object
+    204:
+      title: Successful deleted response
+    400:
+      title: Request error response
+      type: object
+    401:
+      title: Authorization error response
+      type: object
+    404:
+      title: Not found response
+      type: object
+    5XX:
+      title: Server response
+      type: object

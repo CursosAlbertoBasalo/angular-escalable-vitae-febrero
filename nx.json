@@ -25,6 +25,7 @@
     "booster-e2e": { "tags": [], "implicitDependencies": ["booster"] },
     "ui": { "tags": [] },
     "data": { "tags": [] },
-    "auth": { "tags": [] }
+    "auth": { "tags": [] },
+    "api": { "tags": [] }
   }
 }
